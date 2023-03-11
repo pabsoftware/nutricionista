@@ -4,8 +4,9 @@ from django.http import HttpResponse
 # Create your views here.
 
 def cad_usuario(request):
+    template = 'cadastro.html'
 
-    return HttpResponse('Você está na página de cadstro de usuario')
+    return render(request, template)
 
 
 def login(request):

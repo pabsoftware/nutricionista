@@ -1,15 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de usuario</title>
-</head>
-<body>
-  <h2>Tela de cadastro de usuario</h2>  
-  <input type="text">
-  <input type="text">
-  <button>Cadastrar</button>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block 'titulo' %}Cadastre-se{% endblock %}
+{% block 'body' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 sidebar">
+            <div class="logo_sidebar">
+                <h2 class="logo">
+                    <img class="img_logo_sidebar" src="">
+                </h2>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="area_cadastrar">
+                <h2 class="titulo">Seja bem vindo</h2>
+                <p class="sub-titulo">Crie sua conta</p>
+                <hr>
+                <form action="" method="">
+                    <span class="bold">Nome de usuário</span>
+                    <input class="form-control input-form" name="usuario" type="text" placeholder="Digite seu nome...">
+                    <br>
+                    <span class="bold">E-mail</span>
+                    <input class="form-control input-form" name="email" type="text" placeholder="Digite seu E-mail...">
+                    <br>
+                    <div class="row">
+                        <div class="col-md">
+                            <span class="bold">Senha</span>
+                            <input class="form-control input-form" name="senha" type="password"
+                                placeholder="Digite sua senha...">
+                        </div>
+                        <div class="col-md">
+                            <span class="bold">Confirmar senha</span>
+                            <input class="form-control input-form" name="confirmar_senha" type="password"
+                                placeholder="Confirme sua sennha">
+                        </div>
+                    </div>
+                    <br>
+                    <button class=" btn-first">Registrar</button>
+                </form>
+                <h3 style="position: absolute; bottom: 65px; font-weight: bold">Já possui uma conta ?&nbsp <a
+                        class="btn btn-outline-success"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
