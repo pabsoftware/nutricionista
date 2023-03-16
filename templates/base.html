@@ -11,7 +11,9 @@
     <title>{% block title %} Plataforma {% endblock %}</title>
 </head>
 <body>
-    {% block navbar %}
+    
+    {% if user.is_authenticated %}
+
     <nav class="navbar navbar-expand-sm bg-success navbar-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Logo</a>
@@ -32,7 +34,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Dropdown</a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Link</a></li>
+                <li><a class="dropdown-item" href="{% url 'pacientes' %}">Pacientes</a></li>
                 <li><a class="dropdown-item" href="#">Another link</a></li>
                 <li><a class="dropdown-item" href="#">A third link</a></li>
               </ul>
@@ -41,7 +43,8 @@
         </div>
       </div>
     </nav>
-      {% endblock %}
+    {% endif %}
+    
 
     {% block body %} Teste {% endblock %}   
 </body>
