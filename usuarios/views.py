@@ -64,7 +64,7 @@ def login(request):
             return redirect('login')
         else:
             auth.login(request, user)
-            return HttpResponse('logado com sucesso')
+            return redirect('pacientes')
     return render(request, template_name)
 
 
