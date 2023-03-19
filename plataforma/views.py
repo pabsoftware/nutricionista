@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages import constants
 from django.contrib import messages
-from . models import Pacientes, DadosPaciente
+from . models import Pacientes, DadosPaciente, Refeicao, Opcao
 from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
 
@@ -101,7 +101,7 @@ def dados_paciente(request, id):
         
 
 @login_required(login_url='/auth/logar/')
-@csrf_exempt
+@csrf_exempt #para não precisar csrf-token no formulário html
 def grafico_peso(request, id):
     paciente = Pacientes.objects.get(id=id)
     dados = DadosPaciente.objects.filter(paciente=paciente).order_by("data")
@@ -109,4 +109,25 @@ def grafico_peso(request, id):
     labels = list(range(len(pesos)))
     data = {'peso': pesos,
     'labels': labels}
+    print(data)
     return JsonResponse(data)
+
+
+@login_required(login_url='login')       
+def plano_alimentar_listar(request):
+    template_name = 'plataforma/plano_alimentar_listar.html'
+    pacientes = Pacientes.objects.filter(nutri=request.user)
+    return render(request, template_name, {'pacientes':pacientes})
+
+
+def plano_alimentar(request, id):
+    template_name = 'plataforma/plano_alimentrar.html'
+    paciente = get_object_or_404(Pacientes, id=id)
+    if not paciente.nutri == request.user:
+        messages.add_message(request, constants.ERROR, 'Esse paciente não é seu')
+        return redirect('/plano_alimentar_listar/')
+    if request.method == 'GET':
+        #dados_pac= DadosPaciente.objects.filter(paciente=id)
+       
+        return render(request, template_name, {'paciente':paciente})
+    
