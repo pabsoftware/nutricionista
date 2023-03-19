@@ -131,3 +131,29 @@ def plano_alimentar(request, id):
        
         return render(request, template_name, {'paciente':paciente})
     
+def refeicao(request, id_paciente):
+    paciente = get_object_or_404(Pacientes, id=id_paciente)
+    if not paciente.nutri == request.user:
+        messages.add_message(request, constants.ERROR, 'Esse paciente não é seu')
+        return redirect('/dados_paciente/')
+   
+    if request.method == "POST":
+        titulo          = request.POST.get('titulo')
+        horario         = request.POST.get('horario')
+        carboidratos    = request.POST.get('carboidratos')
+        proteinas       = request.POST.get('proteinas')
+        gorduras        = request.POST.get('gorduras')
+       
+        r1 = Refeicao(paciente=paciente,
+        titulo          = titulo,
+        horario         = horario,
+        carboidratos    = carboidratos,
+        proteinas       = proteinas,
+        gorduras        = gorduras)
+        r1.save()
+        messages.add_message(request, constants.SUCCESS, 'Refeição cadastrada')
+        return redirect(f'/plano_alimentar/{id_paciente}')
+    r1 = Refeicao.objects.filter(paciente=paciente).order_by('horario')
+    return render(request, 'plano_alimentar.html', {'paciente': paciente, 'refeicao':r1})
+
+    

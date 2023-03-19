@@ -62,7 +62,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <h4 class="titulo">Adicionar refeição</h4>
+        <h4 class="titulo" id="titulo_cardapio">Adicionar refeição</h4>
         <button type="button" class="btn btn-outline-success" onclick="exibe_refeicao()">
           + Nova refeição
         </button>
@@ -72,7 +72,7 @@
         <br>
         <br>
         <div id="form-refeicao" style="display: block;">
-          <form action="" method="POST">{% csrf_token %}
+          <form action="{% url 'refeicao' paciente.id %}" method="POST">{% csrf_token %}
             <label for="validationServerUsername">Título</label>
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Ex: Café da manhã" name="titulo">
@@ -143,16 +143,18 @@
   function exibe_refeicao(){
       const form_refeicao = document.getElementById('form-refeicao') 
       const form_opcao = document.getElementById('form-opcao') 
-
+      const titulo_cardapio = document.getElementById('titulo_cardapio')
 
       form_refeicao.style.display = 'block'
       form_opcao.style.display = 'none'
+      titulo_cardapio.innerText = 'Adicionar refeição'
    }
   
   function exibe_opcao(){
       const form_refeicao = document.getElementById('form-refeicao') 
       const form_opcao = document.getElementById('form-opcao') 
-
+      const titulo_cardapio = document.getElementById('titulo_cardapio')
+      titulo_cardapio.innerText = 'Adicionar opção'
 
       form_refeicao.style.display = 'none'
       form_opcao.style.display = 'block'
