@@ -12,40 +12,46 @@
 </head>
 <body>
     
-    {% if user.is_authenticated %}
+   
 
-    <nav class="navbar navbar-expand-sm bg-success navbar-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Logo</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'cadastrar' %}">cad usuario</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'logout' %}">Sair</a>
-            </li>  
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Dropdown</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'pacientes' %}">Pacientes</a></li>
-                <li><a class="dropdown-item" href="#">Gnremciar pacientes</a></li>
-                <li><a class="dropdown-item" href="#">A third link</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    {% endif %}
+  
+   
     
+<nav class="navbar navbar-expand-sm navbar-dark bg-success">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="javascript:void(0)">Logo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mynavbar">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}">HOME</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'pacientes' %}">PACIENTE</a>
+        </li>
+        {% endif %}
+      </ul>
+   <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">AUTENTICAÇÃO</a>
+            <ul class="dropdown-menu">
+              {% if not user.is_authenticated %}
+              <li><a class="dropdown-item" href="{% url 'cadastrar' %}">Cadastro de usuário</a></li>
+              <li><a class="dropdown-item" href="{% url 'login' %}">Fazer Login</a></li>
+              {% endif %}
+              {% if user.is_authenticated %}
+              <li><a class="dropdown-item" href="{% url 'logout' %}">Sair</a></li>
+              {% endif %}
 
+            </ul>
+          </li>
+        </ul>
+    </div>
+  </div>
+</nav>
     {% block body %} {% endblock %}   
 </body>
 </html>

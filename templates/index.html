@@ -1,11 +1,22 @@
-{% extends 'base_plataf.html' %}
-
-{% block plataforma %}
-<br>
-<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal">
-Novo paciente
-</button>
-
-
-{% endblock plataforma %}
- 
+{% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'usuarios/css/cadastro.css' %}">
+{% endblock %}
+{% block 'titulo' %}Cadastre-se{% endblock %}
+{% block body %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3 sidebar">
+            <div class="logo_sidebar">
+                <h2 class="logo">
+                    <img class="img_logo_sidebar" src="{% static 'usuarios/img/fundo_background.png' %}">
+                </h2>
+            </div>
+        </div>
+        <div class="col-md-9">
+           
+        </div>
+    </div>
+</div>
+{% endblock %}

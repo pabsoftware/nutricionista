@@ -9,6 +9,9 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
+def home(request):
+    template_name = 'index.html'
+    return render(request, template_name)
 
 @login_required(login_url='login')
 def pacientes(request):
