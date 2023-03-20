@@ -32,24 +32,31 @@
 <br>
 
 <div class="fundo-alimentar">
+  {% for refeicao in refeicao_list %}
   <div class="refeicao">
     <div class="head-refeicao">
-      <span>Café da manhã</span>
-      <span style="float: right;">07:00h</span>
+      <span>{{ refeicao.titulo }}</span>
+      <span style="float: right;">{{refeicao.horario}}h</span>
     </div>
     <div class="body-refeicao">
+      {% for opcao in opcao %}
+      {% if opcao.refeicao == refeicao %}
       <div class="opcao">
         <div class="row">
           <div class="col-md-2">
-            <img width="100%" src="{% static 'plataforma/img/perfil1.png' %}">
+        
+            <img width="100%" src="{{opcao.imagem.url}}">
+            
           </div>
           <div class="col-md-10">
-            Teste 2
+           {{opcao.descricao}}
           </div>
         </div>
-      </div>
+      </div>{% endif %}
+      {% endfor %}
     </div>
   </div>
+  {% endfor %}
 </div>
 <br>
 
@@ -111,11 +118,16 @@
           </form>
         </div>
         <div id="form-opcao" style="display: none;">
-          <form action="" method="POST" enctype='multipart/form-data'>{% csrf_token %}
+          <form action="{% url 'opcao' paciente.id %}" method="POST" enctype='multipart/form-data'>{% csrf_token %}
             <label for="validationServerUsername">Selecione a refeição</label>
             <div class="input-group">
               <select class="form-control" name="refeicao">
-                <option value="">Café da manhã</option>
+                <option value="">------------</option>
+               
+                  {% for re in refeicao_list %}
+                  <option value="{{re.id}}">{{re.titulo}}</option>
+                  {% endfor %}
+                 
               </select>
             </div>
             <br>

@@ -126,11 +126,13 @@ def plano_alimentar(request, id):
     if not paciente.nutri == request.user:
         messages.add_message(request, constants.ERROR, 'Esse paciente não é seu')
         return redirect('/plano_alimentar_listar/')
-    if request.method == 'GET':
-        #dados_pac= DadosPaciente.objects.filter(paciente=id)
-       
-        return render(request, template_name, {'paciente':paciente})
     
+    if request.method == 'GET':
+        refeicao_list = Refeicao.objects.filter(paciente = id).order_by('horario')
+        opcao = Opcao.objects.all()
+        return render(request, template_name, {'paciente':paciente, 'refeicao_list': refeicao_list, 'opcao':opcao})
+
+
 def refeicao(request, id_paciente):
     paciente = get_object_or_404(Pacientes, id=id_paciente)
     if not paciente.nutri == request.user:
@@ -154,6 +156,24 @@ def refeicao(request, id_paciente):
         messages.add_message(request, constants.SUCCESS, 'Refeição cadastrada')
         return redirect(f'/plano_alimentar/{id_paciente}')
     r1 = Refeicao.objects.filter(paciente=paciente).order_by('horario')
+    
     return render(request, 'plano_alimentar.html', {'paciente': paciente, 'refeicao':r1})
+
+def opcao(request, id_paciente):
+    if request.method == "POST":
+        id_refeicao = request.POST.get('refeicao')
+        imagem = request.FILES.get('imagem')
+        descricao = request.POST.get("descricao")
+       
+        opcao = Opcao(refeicao_id=id_refeicao,
+        imagem=imagem,
+        descricao=descricao)
+       
+        opcao.save()
+        messages.add_message(request, constants.SUCCESS, 'Opcao cadastrada')
+        return redirect(f'/plano_alimentar/{id_paciente}')
+   
+  
+
 
     
